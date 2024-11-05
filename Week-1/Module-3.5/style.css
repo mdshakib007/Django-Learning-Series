@@ -1,0 +1,186 @@
+.horizontal-roll{
+    border-top: 3px dotted rgb(73, 73, 73);
+    margin: 30px;
+}
+
+.carousel-caption-extra{
+    background-color: rgba(62, 62, 62, 0.45);
+    width: 500px;
+    margin: auto;
+    padding: auto;
+    border-radius: 20px;
+}
+.carousel-caption-extra h2{
+    padding: 10px;
+    color: white;
+    font-weight: bolder;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.carousel-caption-extra p{
+    padding: 10px;
+    color: white;
+    font-size: large;
+}
+
+.pro-title{
+    width: 500px;
+    text-align: center;
+    padding: auto;
+    margin: auto;
+}
+
+.program-1 {
+    height: 400px;
+    background-image: url("./Images/2.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 20px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start; 
+    padding: 20px; 
+    box-sizing: border-box;
+}
+.program-1 h1,
+.program-1 p,
+.program-1 button {
+    margin: 0;
+    padding: 5px;
+}
+
+.program-2 {
+    height: 400px;
+    background-image: url("./Images/3.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 20px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start; 
+    padding: 20px; 
+    box-sizing: border-box;
+}
+.program-2 h1,
+.program-2 p,
+.program-2 button {
+    margin: 0;
+    padding: 5px;
+}
+
+.program-3 {
+    height: 600px;
+    background-image: url("./Images/4.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 20px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start; 
+    padding: 20px; 
+    box-sizing: border-box;
+}
+.program-3 h1,
+.program-3 p,
+.program-3 button {
+    margin: 0;
+    padding: 5px;
+}
+/* For large screens */
+.program-1, .program-2 {
+    height: 400px;
+}
+
+.program-3 {
+    height: 600px;
+}
+@media (max-width: 768px) {
+    .program-1, .program-2, .program-3 {
+        height: 400px; 
+    }
+}
+
+
+/* product section  */
+.product-card{
+    border: 1px solid rgb(168, 168, 168);
+    border-radius: 15px;
+    margin: 20px 0;
+    align-items: center;
+}
+@media (max-width: 768px) {
+    .product-card{
+        flex-direction: column;
+    }
+}
+
+
+/* qna section  */
+.qna-section{
+    border: 1px solid rgb(165, 165, 165);
+    background-color: rgba(231, 231, 231, 0.543);
+    border-radius: 15px;
+}
+@media (max-width: 768px) {
+    .qna-section{
+        flex-direction: column;
+    }
+}
+
+/* contact form design  */
+.contact-left{
+    border: 1px solid rgb(200, 200, 200);
+    border-radius: 15px;
+    text-align: center;
+}
+.contact-a{
+    width: 250px;
+    border-radius: 10px;
+    background-color: rgba(191, 255, 216, 0.568);
+}
+.contact-b{
+    width: 250px;
+    border-radius: 10px;
+    background-color: rgba(255, 216, 191, 0.568);
+}
+.contact-c{
+    width: 250px;
+    border-radius: 10px;
+    background-color: rgba(191, 201, 255, 0.568);
+}
+
+.submit-btn{
+    height: 50px;
+    width: 100%;
+    border-radius: 10px;
+    border: none;
+    background-color: orange;
+}
+
+.social-media{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    padding: 20px;
+    width: 80%;
+    background-color: rgba(207, 207, 207, 0.418);
+    border-radius: 15px;
+}
+.social-media h2{
+    letter-spacing: 10px;
+}
+
+@media (max-width: 800px) {
+    .footer{
+        flex-direction: column;
+        padding: auto;
+        margin: auto;
+        text-align: center;
+    }
+}
+
+

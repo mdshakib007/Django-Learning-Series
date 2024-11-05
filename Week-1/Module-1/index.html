@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="algoaspire.png">
+    <title>First Website</title>
+</head>
+
+<body>
+    <h1 id="top">Top Page</h1>
+    <h3>Tables in HTML</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Address</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Shakib</td>
+                <td>shakib@mail.com</td>
+                <td>Bhaluka</td>
+            </tr>
+            <tr>
+                <td>Anis</td>
+                <td>anis@mail.com</td>
+                <td>Kachina</td>
+            </tr>
+            <tr>
+                <td>Hisam</td>
+                <td>hisam@mail.com</td>
+                <td>Mym</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <hr>
+
+    <em>shakib</em> ahmed
+    <mark>Anis</mark>
+    <small>King</small>
+    <del>Ahmed</del>
+
+    <p>The quote is: <q>Good things take times.</q></p>
+    <p>Another quote is: </p>
+    <blockquote>No pain, No gain!</blockquote>
+    <p>The <abbr title="World Health Organization">Who</abbr> is not supporting Gaza.</p>
+
+    <address>
+        MD Shakib, <br>
+        visit us at: <br>
+        mdshakib007.github.io <br>
+        136/6, bhaluka <br>
+        Bangladesh
+    </address>
+
+    <bdo dir="rtl">This text will be written from right to left</bdo>
+    <hr>
+    <a href="https://mdshakib007.github.io/" target="_blank">portfolio</a>
+    <hr>
+    <a href="https://mdshakib007.github.io/">
+        <img src="algoaspire.png" alt="HTML tutorial" style="width:42px;height:42px;">
+    </a>
+
+    <br>
+    <button onclick="document.location=''">HTML Tutorial</button>
+    <br>
+    <a href="#top">Back to top</a>
+
+    <hr>
+
+    <img src="algoaspire.png" alt="Logo">
+
+    <hr>
+
+    <img src="algoaspire.png" alt="Workplace" usemap="#workmap">
+
+
+    <map name="workmap">
+        <area shape="rect" coords="34,44,270,350" alt="Computer" href="computer.htm">
+        <area shape="rect" coords="290,172,333,250" alt="Phone" href="phone.htm">
+        <area shape="circle" coords="337,300,44" alt="Coffee" href="coffee.htm">
+    </map>
+
+    <dl>
+        <dt>Coffee</dt>
+        <dd>- black hot drink</dd>
+        <dt>Milk</dt>
+        <dd>- white cold drink</dd>
+    </dl>
+
+    <ol>
+        <li>A</li>
+        <li>B</li>
+        <li>C</li>
+    </ol>
+
+    <iframe src="https://mdshakib007.github.io/" height="800" width="400" title="Iframe Example"></iframe>
+    <br>
+
+    <form>
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name"> <br>
+        <label for="email">Email</label>
+        <input type="email" name="email"> <br>
+        <input type="submit" name="submit"><br>
+
+        <p>chose your gender</p>
+        <input type="radio" name="gender" value="Male" id="male">
+        <label for="male">Male</label>
+        <input type="radio" name="gender" value="Female" id="female">
+        <label for="female">Female</label> <br>
+
+        <p>I have</p>
+        <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+        <label for="vehicle1"> I have a bike</label><br>
+        <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+        <label for="vehicle2"> I have a car</label><br>
+        <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">
+        <label for="vehicle3"> I have a boat</label>
+
+
+    </form>
+</body>
+
+</html>

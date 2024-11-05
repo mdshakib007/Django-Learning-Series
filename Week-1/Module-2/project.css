@@ -1,0 +1,181 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(45deg, rgb(211, 99, 255), rgb(99, 43, 252));
+    padding: 10px;
+}
+
+.logo{
+    width: 60px;
+    border-radius: 50px;
+    border: 1px solid black;
+}
+
+li{
+    list-style: none;
+}
+
+.nav-list{
+    display: flex;
+    gap: 15px;
+    font-size: 20px;
+}
+
+li:hover{
+    color: white;
+    cursor: pointer;
+}
+
+.dev-img{
+    width: 300px;
+}
+
+.banner-container{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-top: 20px;
+    width: 100%;
+    margin: auto;
+}
+
+.banner-left{
+    width: 400px;
+    line-height: 1.3;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.banner-right{
+    background: linear-gradient(45deg, rgb(211, 99, 255), rgb(99, 43, 252));
+    border-radius: 30px;
+}
+
+.btn{
+    padding: 15px 30px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    margin: 10px;
+    font-style: bold;
+}
+
+.hire-btn{
+    color: white;
+    background: linear-gradient(45deg, rgb(211, 99, 255), rgb(99, 43, 252));
+}
+.course-btn{
+    color: white;
+    background: linear-gradient(45deg,rgb(99, 43, 252), rgb(211, 99, 255));
+}
+
+.name{
+    font-size: 40px;
+    font-family: 'Courier New', Courier, monospace;
+}
+.title{
+    font-size: 25px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.info{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+}
+
+.course-title{
+    font-size: 50px;
+    font-family: 'Courier New', Courier, monospace;
+    margin-top: 50px;
+    text-align: center;
+}
+
+.courses{
+    display: flex;
+}
+
+.course{
+    width: 33%;
+    height: auto;
+    margin: 10px;
+    box-shadow: 4px 4px 8px grey;
+    background: linear-gradient(45deg, rgb(211, 99, 255), rgb(99, 43, 252));
+    border-radius: 10px;
+    text-align: center;
+}
+
+.course-img{
+    width: 250px;
+    padding: 10px;
+}
+
+.c-btn{
+    background-color: rgb(122, 122, 255);
+    color: white;
+    border-radius: 0px;
+}
+.c-btn:hover{
+    background-color: rgb(83, 83, 252);
+}
+
+.course-desc{
+    width: 85%;
+}
+
+a{
+    text-decoration: none;
+    color: white;
+}
+
+.contact-form{
+    display: flex;
+    justify-content: center;
+}
+
+.form{
+    width: 50%;
+    box-shadow: 3px 3px 6px grey;
+    padding: 30px;
+    margin: 30px;
+    text-align: center;
+}
+
+.input-box{
+    margin-top: 15px;
+    width: 70%;
+    padding: 15px;
+}
+
+.submit-btn:hover{
+    background: linear-gradient(45deg, rgb(211, 99, 255), rgb(99, 43, 252));
+}
+
+footer{
+    height: 300px;
+    background: linear-gradient(45deg, rgb(211, 99, 255), rgb(99, 43, 252));
+}
+
+.footer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px;
+}
+
+.subscribe-box{
+    width: 300px;
+    padding: 15px;
+    border-radius: 10px;
+    border: none;
+}
+
+.rights{
+    text-align: center;
+}
