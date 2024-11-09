@@ -4,6 +4,17 @@
     font-weight: bolder;
 }
 
+.nav-link-custom {
+    font-size: 1.2rem; 
+    border-radius: 20px;
+    padding-left: 10px;
+    margin-left: 10px;
+}
+
+.nav-link-custom:hover{
+    background-color: rgb(0, 89, 255);
+}
+
 main{
     min-height: 100vh;
 }

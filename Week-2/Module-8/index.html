@@ -13,25 +13,31 @@
 
 <body>
     <header>
-        <nav class="navbar fixed-top bg-success navbar-expand-lg" data-bs-theme="dark">
+        <nav class="navbar fixed-top navbar-expand-lg bg-primary"
+            data-bs-theme="dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#"><img src="./food.png" alt="food" style="height: 80px;"></a>
+                <a class="navbar-brand" href="#">
+                    <img src="./food.png" alt="food" style="height: 80px;">
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <ul class="navbar-nav m-auto mb-lg-0 w-100 d-flex justify-content-evenly">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            <a class="nav-link active nav-link-custom" aria-current="page" href="#">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#result-title">All Food Items</a>
+                            <a class="nav-link active nav-link-custom" aria-current="page" href="#result-title">All Food
+                                Items</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#my-items-title">My List</a>
+                            <a class="nav-link active nav-link-custom" aria-current="page" href="#my-items-title">My
+                                List</a>
                         </li>
+                    </ul>
                 </div>
             </div>
         </nav>
@@ -40,23 +46,28 @@
     <main class="mt-5 mb-5 p-5">
         <form class="d-flex pt-5">
             <input id="input-box" class="form-control me-2 shadow-sm" type="text" placeholder="Search Food...">
-            <button id="search-btn" class="btn btn-outline-success shadow-sm" onclick=searchByName()>Search</button>
+            <button id="search-btn" class="btn btn-outline-primary shadow-sm" onclick=searchByName()>Search</button>
         </form>
-        
+
         <div class="search-title mt-5 mb-5">
-            <h1 id="result-title" class="text-success card text-center pt-2 pb-2">Search Result</h1>
+            <h1 id="result-title" class="text-primary card text-center pt-2 pb-2">Search Result</h1>
         </div>
         <div id="search-result" class="m-5 d-flex flex-wrap">
             <!-- here the search result will placed  -->
         </div>
 
-        <hr> <hr>
+        <hr>
+        <hr>
         <div class="my-title mt-5 mb-5">
-            <h1 id="my-items-title" class="text-success card text-center pt-2 pb-2">My List</h1>
+            <h1 id="my-items-title" class="text-primary card text-center pt-2 pb-2">My List - 0 Items</h1>
+        </div>
+        <div id="my-list" class="m-5 d-flex flex-wrap">
+            <!-- here the search result will placed  -->
         </div>
     </main>
-
-    <footer class='bg-success text-center text-light p-3'>
+    
+    <hr><hr>
+    <footer class='bg-primary text-center text-light p-3'>
         <div class="d-flex p-2 justify-content-evenly">
             <div class="footer-1">
                 <p>Contact US</p>
@@ -72,7 +83,7 @@
             </div>
         </div>
         <hr>
-        <h6>Copyright @MealShop, 2024</h6>
+        <h6>Copyright @FreshFood, 2024</h6>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -92,8 +103,7 @@
                     <!-- Content will be dynamically added here -->
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">Add to List +</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
