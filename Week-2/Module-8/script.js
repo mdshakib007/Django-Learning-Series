@@ -2,7 +2,7 @@ let myItems = [];
 
 function initPlace() {
     const init = true;
-    fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=`)
+    fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=a`)
         .then(res => res.json())
         .then((data) => {
             placeSearchResult(data, init);
@@ -30,13 +30,13 @@ function placeSearchResult(searchResult, init = false) {
     if (!init)
         document.getElementById('result-title').innerText = "Search Result";
     else
-        document.getElementById('result-title').innerText = "All Products";
+        document.getElementById('result-title').innerText = "Some Food Items";
 
     if (!searchResult.meals) {
         container.innerHTML = `
         <div class='card'>
         <h1 class='text-danger m-5'>No Item Found!</h1>
-        <button class='btn btn-danger m-2' onclick="location.reload()">Refresh</button>
+        <button class='btn btn-danger m-2' onclick="initPlace()">Refresh</button>
         </div>
         `;
         return;
@@ -100,12 +100,12 @@ function showDetails(id, title, image, area, category, tags, video, ingredients)
 function addToList(id, name, image, category) {
     // console.log(id, name, image, category);
     id = parseInt(id);
-    if (myItems.includes(id) || myItems.length == 10) {
+    if (myItems.includes(id)) {
         const modalTitle = document.getElementById('modalLabel');
         const modalBody = document.querySelector('#detailsModal .modal-body');
         modalTitle.innerText = "Problem Occurred!";
         modalBody.innerHTML = `
-            <h4 class='text-danger'>This food item is already in my list or Maximum amount of item added to the list!</h4>
+            <h4 class='text-danger'>This food item is already in My List!</h4>
         `;
         const modal = new bootstrap.Modal(document.getElementById('detailsModal'));
         modal.show();
@@ -135,7 +135,7 @@ function removeFromList(id) {
     if (idx !== -1) {
         myItems.splice(idx, 1);
     }
-    
+
     const container = document.getElementById('my-list');
     const cards = container.getElementsByClassName('card');
     for (let card of cards) {
@@ -149,4 +149,8 @@ function removeFromList(id) {
 
 
 // initial place of all product
-initPlace();
+let initDoc = true;
+if (initDoc == true) {
+    initPlace();
+    initDoc = false;
+}
