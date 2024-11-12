@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home of Nav</title>
+</head>
+<body>
+    <h1>This is Navigation Home Page</h1>
+
+    <a href="/">Home</a>
+    <a href="/navigation/home/">Nav_Home</a>
+    <a href="/navigation/contact/">Contact</a>
+    <a href="/navigation/about/">About</a>
+
+    <hr>
+    <h1>Data From Backend:</h1>
+    <h3>Author: {{author}}</h3>
+    <h3>Age: {{age}}</h3>
+    <h3>Birthday: {{birthday}}</h3>
+    <h3>Friends: {{friends}}</h3>
+
+    <!-- Conditional Statement -->
+     <hr>
+     <h1>Conditional: </h1>
+     {% if age >= 20 %}
+        <h3>{{author}} is adult!</h3>
+     {% elif age >= 10 and age <= 19 %}
+        <h3>{{author}} is teen ager</h3>
+     {% else %}
+        <h3>{{author}} is a child!</h3>
+     {% endif %}
+
+    <!-- Looping -->
+     <hr>
+     <h1>Looping: </h1>
+     {% for i in courses %}
+     <h3>ID: {{i.id}}, Name: {{i.name}}, Fees: {{i.fee}}</h3>
+     {% endfor %}
+
+    <!-- Joining -->
+     <hr>
+     <h1>Joining:</h1>
+     <h3>{{friends | join:' - '}}</h3>
+
+    <!-- filters -->
+     <hr>
+     <h1>Filters:</h1>
+     <h3>{{"There Is No Spaces" | cut:" "}}</h3>
+     <h3>Length of Author: {{ author | length }}</h3>
+     <h3>{{"Hi, This is shakib and you will not see full text from here!" | truncatechars:40}}</h3>
+
+</body>
+</html>
