@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home-Practice Module-10.5</title>
+    <style>
+        li{
+            list-style: none;
+            display: flex;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <li>
+            <ul><a href="/practice/">Home</a></ul>
+            <ul><a href="/practice/about/">About</a></ul>
+            <ul><a href="/practice/contact">Contact</a></ul>
+        </li>
+    </nav>
+    <main>
+        <hr>
+        <h1>This is Home Page</h1>
+
+        <hr>
+        <h2>Info from backend: </h2>
+        <h3>Name: {{name}}</h3>
+        <h3>Age: {{age}}</h3>
+        <h3>Birthday: {{birthday}}</h3>
+        <h3>friends: {{friends}}</h3>
+        <h3>Description: {{description}}</h3>
+
+        <hr>
+        <h2>Conditions: </h2>
+        {% if age >= 18 %}
+            <h3>You can get NID!</h3>
+        {% elif age <= 10 %}
+            <h3>You have to wait for few more years!</h3>
+        {% else %}
+            <h3>Oh! No! you are a child!</h3>
+        {% endif %}
+        
+        <hr>
+        <h2>Looping: </h2>
+        {% for i in courses %}
+            <h3>{{i.name}}, {{i.fees}}</h3>
+        {% endfor %}
+
+        <hr>
+        <h2>Django Template Filters:</h2>
+        <h3>Size of incomes: {{incomes | length}}</h3>
+        <h3>After 5 years, my Age: {{age | add:'5'}}</h3>
+        <h3>{{"There Is No Spaces" | cut:' '}}</h3>
+        <h3>Current Date: {{birthday | date:'D d M Y'}}</h3>
+        <h3>{{status | default:'The variable is not found!'}}</h3>
+        <h3>Sort by Name: {{courses | dictsort:'name'}}</h3>
+        <h3>Sort by Price: {{courses | dictsort:'fees'}}</h3>
+        <h3>Is 25 divisible by 5? : {{25 | divisibleby:'5'}}</h3>
+        <h3>The size of 23452345 : {{23452345 | filesizeformat}}</h3>
+        <h3>After join: {{incomes | join:' / '}}</h3>
+        <h3>to lower: {{"SHAKIB" | lower}}</h3>
+        <h3>to upper: {{"shakib" | upper}}</h3>
+        <h3>list of my name's chars: {{name | make_list}}</h3>
+        <h3>Random val from incomes: {{incomes | random}}</h3>
+        <h3>Slicing of incomes: {{incomes | slice:':2'}}</h3>
+        <h3>Slugify description: {{description | slugify}}</h3>
+        <h3>Now: {{birthday | time:'H:i'}} GMT+0</h3>
+        <h3>{{"This is the title" | title}}</h3>
+        <h3>No. or words in description: {{description | wordcount}}</h3>
+        <h3>Time passed: {{birthday | timesince}}</h3>
+        <h3>Truncate: {{description | truncatechars:'30'}}</h3>
+    </main>
+</body>
+</html>
