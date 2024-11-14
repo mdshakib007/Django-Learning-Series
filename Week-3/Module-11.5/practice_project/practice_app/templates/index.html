@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Home - FreshFood
+{% endblock title %}
+
+{% block content %}
+
+<h1 class="text-center m-5">All Food Items...</h1>
+
+<div class="m-2 d-flex flex-wrap justify-content-evenly p-2" id="items">
+    {% for item in meals %}
+    <div class="card m-3 shadow-sm" style="width: 18rem;">
+        <img src="{{item.strMealThumb}}" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">{{item.strMeal}}</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock content %}
