@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Django Model Forms
+{% endblock title %}
+
+{% block main %}
+
+    <h1 class='text-center text-secondary'> Django Model Form </h1>
+    <form style="max-width:50%; margin:auto;" method="post">
+        {% load crispy_forms_tags %}
+        {% csrf_token %}
+        {{form | crispy}}
+        <input type="submit" value="Submit" class="btn btn-outline-primary mb-5">
+    </form>
+{% endblock main %}
+
