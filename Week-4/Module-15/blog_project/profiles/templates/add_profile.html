@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}
+Add Profile
+{% endblock title %}
+
+{% block content %}
+
+<form style="width:50%; margin:auto;" class="mt-5" method="post" >
+    {% csrf_token %}
+    {{form | crispy}}
+    <div class="d-flex justify-content-center mt-3 mb-3">
+        <button type="submit" class="btn btn-outline-warning">Create Profile</button>
+    </div>
+</form>
+
+{% endblock content %}
