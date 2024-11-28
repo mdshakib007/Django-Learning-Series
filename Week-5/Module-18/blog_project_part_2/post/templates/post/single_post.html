@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{post.title}} - AlgoAspire Blog{% endblock title %}
+
+{% block style %}
+.post-card {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.post-image {
+    height: 300px;
+    object-fit: cover;
+}
+{% endblock style %}
+
+{% block main %}
+
+<div class="card post-card my-4">
+    <div class="card-header d-flex align-items-center">
+        <img src="{% static 'default.jpg' %}" alt="Profile Picture" class="rounded-circle me-3" width="50" height="50">
+        <div>
+            <h6 class="mb-0">{{ post.author.first_name }} {{post.author.last_name}}</h6>
+            <small class="text-muted">{{ post.created_at }}</small>
+        </div>
+    </div>
+    
+    {% if post.image %}
+        <img src="{{ post.image.url }}" alt="{{ post.title }}" class="card-img-top post-image">
+    {% endif %}
+    
+    <div class="card-body">
+        <h5 class="card-title">{{ post.title }}</h5>
+        <p class="card-text">{{ post.content }}</p>
+        {% if post.tags %}
+            <p class="text-muted"><small>Tags: {{ post.tags }}</small></p>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock main %}

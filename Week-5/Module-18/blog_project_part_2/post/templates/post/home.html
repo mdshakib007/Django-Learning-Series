@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Home - AlgoAspire Blog{% endblock title %}
+
+{% block style %}
+.post-card {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.post-image {
+    height: 350px;
+    object-fit: cover;
+}
+{% endblock style %}
+
+{% block main %}
+
+<div class="card text-center m-4" style="background: #7bd5ff;">
+    {% if not user.is_authenticated %}
+        <h4 class="m-2 p-2">Please <a href="{% url 'login' %}">Login</a> to publish Blog!</h4>
+    {% else %}
+        <h4 class="m-2 p-2">Welcome {{user.first_name}} {{user.last_name}}, <a href="{% url 'create_post' %}"><i class="fa-solid fa-pen-to-square"></i> Let's Write Something!</a></h4>
+    {% endif %}
+</div>
+
+<div class="container mt-5">
+    <h1 class="text-center my-4 text-muted">All Posts</h1>
+    <hr>
+    {% if posts %}
+        {% for post in posts %}
+            <div class="card post-card mb-4 shadow-sm">
+                <div class="card-header d-flex align-items-center">
+                    <img src="{% static 'default.jpg' %}" alt="Profile Picture" class="rounded-circle me-3" width="50" height="50">
+                    <div>
+                        <h6 class="mb-0">{{ post.author.first_name }} {{ post.author.last_name }} {% if post.author.is_staff %} <span data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Verified Author"  class="text-primary"><i class="fa-solid fa-circle-check"></i></span> {% endif %}</h6>
+                        <small class="text-muted" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Last Updated: {{post.updated_at}}">{{ post.created_at | date:"D, M Y" }}</small>
+                    </div>
+                </div>
+                
+                {% if post.image %}
+                    <img src="{{ post.image.url }}" alt="{{ post.title }}" class="card-img-top post-image">
+                {% endif %}
+                
+                <div class="card-body">
+                    <h5 class="card-title">{{ post.title }}</h5>
+                    <p class="card-text">{{ post.content|truncatechars:500 }} <a href="{% url 'single_post' post.id %}">See more</a></p>
+                    {% if post.tags %}
+                        <p class="text-muted"><small><i class="fa-solid fa-tags" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Tags in this post"></i> {{ post.tags }}</small></p>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="text-center text-muted">No posts available yet.</p>
+    {% endif %}
+</div>
+{% endblock main %}
