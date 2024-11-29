@@ -47,6 +47,7 @@
             <div class="card post-card mb-4 shadow-sm">
                 <div class="card-header d-flex align-items-center">
                     <img src="{% static 'default.jpg' %}" alt="Profile Picture" class="rounded-circle me-3" width="50" height="50">
+
                     <div>
                         <h6 class="mb-0">{{ post.author.first_name }} {{ post.author.last_name }} {% if post.author.is_staff %} <span data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Verified Author"  class="text-primary"><i class="fa-solid fa-circle-check"></i></span> {% endif %}</h6>
                         <small class="text-muted" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Last Updated: {{post.updated_at}}">{{ post.created_at | date:"D, M Y" }}</small>
@@ -58,12 +59,17 @@
                 {% endif %}
                 
                 <div class="card-body">
+
                     <h5 class="card-title">{{ post.title }}</h5>
-                    <p class="card-text">{{ post.content|truncatechars:400 }} <a href="{% url 'single_post' post.id %}">See more</a></p>
-                    {% if post.tags %}
-                        <p class="text-muted"><small>Tags: {{ post.tags }}</small></p>
-                    {% endif %}
+                    <p class="card-text">{{ post.content|truncatechars:600 }}<a href="{% url 'single_post' post.id %}"> See more</a> </p>
+
+                    <p class="text-muted"><i class="fa-solid fa-tags" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Tags in this post"></i>
+                    {% for cat in post.category.all %}
+                    <span class="badge rounded-pill text-bg-secondary p-2 mb-1">{{cat.name}}</span>
+                    {% endfor %}
+                    </p>
                 </div>
+                
                 <div class="card-footer">
                     <a href="{% url 'edit_post' post.author.username post.id %}" class="btn btn-primary">Edit Post</a>
                     <a href="{% url 'delete_post' post.author.username post.id %}" class="btn btn-outline-danger">Delete Post</a>

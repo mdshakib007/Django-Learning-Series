@@ -19,12 +19,12 @@ class RegistrationForm(UserCreationForm):
         for field in fields:
             self.fields[field].help_text = None
             self.fields[field].label = ''
-        
-
 
     class Meta:
         model = User
         fields = ['username', 'first_name', 'last_name', 'email']
+
+        
         
 class ChangeInformation(forms.ModelForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'id': 'required', 'placeholder': 'Username'}))

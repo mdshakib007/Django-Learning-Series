@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     'author',
     'post',
+    'category',
 ]
 
 CRISPY_ALLOWED_TEMPLATES_PACKS = 'bootstrap5'

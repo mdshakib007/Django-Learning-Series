@@ -1,12 +1,21 @@
 from django.shortcuts import render, redirect
 from post import forms
 from post.models import Post
+from category.models import Category
 from django.contrib import messages
 
 
-def home_view(request):
+def home_view(request, category_slug = None):
     posts = Post.objects.all().order_by('-created_at')
-    return render(request, 'post/home.html', {'posts' : posts})
+    categories = Category.objects.all()
+    current_cat = None
+    
+    if category_slug is not None:
+        cat = Category.objects.get(slug=category_slug)
+        current_cat = cat.name
+        posts = Post.objects.filter(category=cat).order_by('-created_at')
+
+    return render(request, 'post/home.html', {'posts' : posts, 'categories' : categories, 'current_cat' : current_cat})
 
 
 def create_post_view(request):
@@ -16,11 +25,12 @@ def create_post_view(request):
             form = forms.PostForm(request.POST, request.FILES)
             if form.is_valid():
                 post = form.save(commit=False)
-                post.author = request.user
-                post.save()
+                post.author = request.user   
+                post.save()                
+                form.save_m2m()                
                 messages.success(request, "Your Post Successfully Uploaded!")
                 return redirect('home')
-        return render(request, 'post/create_post.html', {'form' : form})
+        return render(request, 'post/create_post.html', {'form': form})
     else:
         return redirect('login')
 
