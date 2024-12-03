@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="d-flex justify-content-center">
+    <div>
+        <h1>Confirm Delete</h1>
+        <p>Are you sure you want to delete "{{ object }}"?</p>
+        <form method="post" class="mt-4">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-outline-danger">Yes, delete</button>
+          <a href="{% url 'home' %}" class="btn btn-primary">Cancel</a>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
