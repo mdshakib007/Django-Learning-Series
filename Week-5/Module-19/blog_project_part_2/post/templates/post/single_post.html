@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}{{ post.title }} - AlgoAspire Blog{% endblock title %}
+
+{% block style %}
+.post-card {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.post-image {
+    height: 300px;
+    object-fit: cover;
+}
+
+.comment-card {
+    background-color: #f9f9f9;
+    border: 1px solid #e3e3e3;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 15px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.comment-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.comment-header img {
+    border-radius: 50%;
+    margin-right: 10px;
+    width: 40px;
+    height: 40px;
+}
+
+.comment-header .comment-author {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+.comment-header .comment-date {
+    font-size: 12px;
+    color: #888;
+}
+
+.comment-body {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #333;
+}
+{% endblock style %}
+
+{% block main %}
+<div class="card post-card my-4 shadow-sm">
+    <div class="card-header d-flex align-items-center">
+        <img src="{% static 'default.jpg' %}" alt="Profile Picture" class="rounded-circle me-3" width="50" height="50">
+        <div>
+            <h6 class="mb-0">{{ post.author.first_name }} {{ post.author.last_name }} 
+                {% if post.author.is_staff %}
+                    <span data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Verified Author" class="text-primary">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </span>
+                {% endif %}
+            </h6>
+            <small class="text-muted" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Last Updated: {{ post.updated_at }}">
+                {{ post.created_at|date:"D, M Y" }}
+            </small>
+        </div>
+    </div>
+
+    {% if post.image %}
+        <img src="{{ post.image.url }}" alt="{{ post.title }}" class="card-img-top post-image">
+    {% endif %}
+    
+    <div class="card-body">
+        <h5 class="card-title">{{ post.title }}</h5>
+        <p class="card-text">{{ post.content }}</p>
+
+        <p class="text-muted">
+            <small>
+                <i class="fa-solid fa-tags" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Tags in this post"></i>
+                {% for cat in post.category.all %}
+                    <span class="badge rounded-pill text-bg-secondary p-2">{{ cat.name }}</span>
+                {% endfor %}
+            </small>
+        </p>
+        <hr>
+    </div>
+
+    <form method="post" class="m-2">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <div class="d-flex justify-content-end">
+            <button class="btn btn-primary" type="submit">
+                <i class="fa-solid fa-share"></i> Comment
+            </button>
+        </div>
+    </form>
+
+    <hr>
+    <div class="all_comments">
+        <h5 class="text-muted m-2">Total {{ comments|length }} Comments</h5>
+        {% for comment in comments %}
+        <div class="comment-card mx-2">
+            <div class="comment-header">
+                <img src="{% static 'default.jpg' %}" alt="Profile Picture">
+                <div>
+                    <div class="comment-author">
+                        {{ comment.author.first_name }} {{ comment.author.last_name }}
+                        {% if comment.author.is_staff %}
+                            <span class="text-primary">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </span>
+                        {% endif %}
+                    </div>
+                    <div class="comment-date">{{ comment.created_at }}</div>
+                </div> <hr>
+            </div>
+            <div class="comment-body"><strong>{{ comment.body }}<strong></div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock main %}

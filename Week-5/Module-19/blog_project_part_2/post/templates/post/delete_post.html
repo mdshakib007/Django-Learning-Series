@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}Delete Post - AlgoAspire Blog{% endblock title %}
+
+{% block main %}
+
+<h1 class="text-center text-secondary mt-4">Confirm to Delete?</h1>
+
+<form class="my-3 mx-auto" method="post" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+    
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-6">
+                {{ form | crispy }}
+                <button class="btn btn-outline-danger mt-3 w-100" type="submit">Delete</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+{% endblock main %}
