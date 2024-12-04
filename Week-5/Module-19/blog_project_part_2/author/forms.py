@@ -35,10 +35,9 @@ class ChangeInformation(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        # Remove help text and labels for specific fields
         for field_name in self.fields:
             self.fields[field_name].help_text = None
-            self.fields[field_name].label = ''  # Remove labels for all fields
+            self.fields[field_name].label = ''
 
     class Meta:
         model = User

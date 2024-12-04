@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}Edit Profile - Aspire Car-Sale{% endblock title %}
+
+{% block main %}
+
+<h1 class="text-center text-secondary my-2">Edit Your Personal Information</h1>
+
+<form class="my-3 mx-auto" method="post">
+    {% csrf_token %}
+    
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-6">
+                {{ form | crispy }}
+                <button class="btn btn-outline-dark mt-3 w-100" type="submit">Save Changes</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+{% endblock main %}

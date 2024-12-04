@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ car.title }} - Aspire Car-Sale{% endblock title %}
+
+{% block style %}
+<style>
+    .car-details-container {
+        padding: 2rem 1rem;
+        background-color: #f8f9fa;
+    }
+    .car-title {
+        color: #343a40;
+    }
+    .car-image {
+        max-width: 100%;
+        border-radius: 10px;
+    }
+    .info-title {
+        font-weight: bold;
+        color: #555;
+    }
+    .comment-card {
+        background-color: #f9f9f9;
+        border: 1px solid #e3e3e3;
+        border-radius: 8px;
+        padding: 10px;
+        margin-bottom: 15px;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    .comment-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+    }
+    
+    .comment-header img {
+        border-radius: 50%;
+        margin-right: 10px;
+        width: 40px;
+        height: 40px;
+    }
+    
+    .comment-header .comment-author {
+        font-size: 14px;
+        font-weight: bold;
+        margin-bottom: 2px;
+    }
+    
+    .comment-header .comment-date {
+        font-size: 12px;
+        color: #888;
+    }
+    
+    .comment-body {
+        font-size: 14px;
+        line-height: 1.6;
+        color: #333;
+    }
+</style>
+{% endblock style %}
+
+{% block main %}
+
+<div class="container car-details-container my-2">
+    <div class="row align-items-center">
+        
+        <div class="col-md-6">
+            <img src="{{ car.image.url }}" alt="{{ car.title }}" class="car-image img-fluid">
+        </div>
+        
+        <div class="col-md-6">
+            <h1 class="car-title display-5 fw-bold">{{ car.title }}</h1>
+            <h3 class="fw-semibold text-success">৳ {{ car.price }}</h3>
+            <div class="my-3">
+                <h6 class="info-title">Brand Name:</h6>
+                <p><a href="{% url 'brand_profile' car.brand.id %}">{{ car.brand.name }}</a></p>
+                <h6 class="info-title">Release Year:</h6>
+                <p>{{ car.released_date | date:"Y" }}</p>
+                <h6 class="info-title">Available Quantity:</h6>
+                <p>{{ car.quantity }}</p>
+            </div>
+            <p class="text-muted">{{ car.description }}</p>
+            
+            <div class="mt-4 d-flex">
+                <a href="{% url 'confirm_order' car.id %}" class="btn btn-dark me-1 {% if car.quantity < 1 %} disabled {%  endif %}" {% if car.quantity < 1 %}  role="button" aria-disabled="true" {%  endif %}>Confirm Order!</a> {% if car.quantity < 1 %} <a data-bs-toggle="tooltip" data-bs-title="All The Quantity Are Sold Out Right Now!"><i class="fa-regular fa-circle-question"></i></a>{%  endif %}
+            </div>
+        </div>
+    </div>
+
+    {% if user.is_authenticated %}
+    <form method="post" class="m-2">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <div class="d-flex justify-content-end">
+            <button class="btn btn-dark" type="submit">
+                <i class="fa-solid fa-share"></i> Comment
+            </button>
+        </div>
+    </form>
+    {% endif %}
+
+    <hr>
+    <div class="all_comments">
+        <h5 class="text-muted m-2">Total {{ comments|length }} Comments</h5>
+        {% for comment in comments %}
+        <div class="comment-card mx-2">
+            <div class="comment-header">
+                <img src="{% static 'default.png' %}" alt="Profile Picture">
+                <div>
+                    <div class="comment-author">
+                        {{ comment.customer.first_name }} {{ comment.customer.last_name }}
+                        {% if comment.customer.is_staff %}
+                            <span class="text-primary" data-bs-toggle="tooltip" data-bs-title="Verified User">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </span>
+                        {% endif %}
+                    </div>
+                    <div class="comment-date">{{ comment.created_at }}</div>
+                </div> <hr>
+            </div>
+            <div class="comment-body"><strong>{{ comment.body }}<strong></div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock main %}

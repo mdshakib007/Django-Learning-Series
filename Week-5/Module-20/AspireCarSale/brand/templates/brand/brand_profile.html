@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ brand.name }} - Aspire Car-Sale{% endblock title %}
+
+{% block main %}
+<div class="container my-5">
+    <div class="mb-4">
+        <h1 class="brand-title display-5 fw-bold">{{ brand.name }}</h1>
+        <h5 class="fw-semibold text-muted">Established: {{ brand.established | date:'Y' }}</h5>
+        <h5 class="fw-semibold text-muted">About:</h5>
+        <p class="text-muted">{{brand.description}}</p>
+        <p class="text-muted">Explore the wide range of cars from {{ brand.name }} and find your dream car!</p>
+    </div>
+</div>
+{% endblock main %}

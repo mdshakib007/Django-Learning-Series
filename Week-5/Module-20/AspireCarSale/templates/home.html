@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %}Home - Aspire Car-Sale{% endblock title %}
+
+{% block style %}
+<style>
+    .header {
+        min-height: 100vh;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)),
+            url("{% static 'car_background.jpg' %}") no-repeat center center/cover;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        text-align: center;
+    }
+    .header p{
+        max-width: 600px;
+    }
+    .header-image {
+        background-image: url("{% static '90.png' %}");
+        background-size: contain; 
+        background-repeat: no-repeat;
+        background-position: center; 
+        padding: 20px;
+        min-height: 300px;
+    }
+
+    .header-image img {
+        width: 100%;
+        max-width: 500px;
+        animation: slideIn 1.5s ease-out;
+    }
+    .btn-rounded {
+        border-radius: 50px;
+        padding: 12px 30px;
+        font-size: 1rem;
+        transition: all 0.3s ease-in-out;
+    }
+    .btn-dark:hover {
+        background-color: #555;
+    }
+    .btn-outline-light:hover {
+        background-color: white;
+        color: #343a40;
+    }
+
+    .end {
+        background-image: url("{% static '90.png' %}");
+        background-size: contain; 
+        background-repeat: no-repeat;
+        background-position: center; 
+        padding: 20px;
+        min-height: 90vh;
+    }
+
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateX(100px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+</style>
+{% endblock style %}
+
+{% block main %}
+<div class="header container-fluid d-flex flex-column-reverse flex-lg-row align-items-center justify-content-center px-5">
+    <div class="header-content d-flex flex-column align-items-center text-center px-3">
+        <h1 class="display-4 fw-bold">The Aspire Car-Sale!</h1>
+        <h3 class="fw-semibold">Biggest Sale of the Year!</h3>
+        <h5 class="mb-4">Up to 12% Discount!</h5>
+        <div class="d-flex gap-3">
+            <a href="#car1" class="btn btn-dark btn-rounded">Explore Shop</a>
+            <a href="#best-price" class="btn btn-outline-light btn-rounded">Best Price!</a>
+        </div>
+    </div>
+    <div class="header-image">
+        <img src="{% static 'header_car.png' %}" alt="Header Car">
+    </div>
+</div>
+
+<h5 class="m-5 text-muted"><i class="fa-solid fa-filter"></i> Filter By Brand</h5>
+<div class="filter-tags m-5">
+    {% for brand in brands %}
+    <a class='text-decoration-none text-white' href="{% url 'filter_by_brand' brand.slug %}">
+        <span class="badge rounded-pill text-bg-dark p-2 my-1">{{brand.name}}</span>
+    </a>
+    {% endfor %}
+</div>
+
+{% if curr_brand is not None %}
+<h3 class="text-center my-4 text-muted">{{cars | length}} Results found for <span class="badge rounded-pill text-bg-danger p-2">{{curr_brand}}</span> 
+    <a href="{% url 'home' %}" class="text-muted"  data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Reset Filter"><i class="fa-solid fa-xmark"></i></a></h3>
+{% else %}
+<h1 class="text-center text-muted my-2">Explore All Cars</h1>
+{% endif %}
+
+<hr>
+{% for car in cars %}
+<div id="car{{forloop.counter}}" class="header container-fluid d-flex flex-column-reverse flex-lg-row {% if forloop.counter|divisibleby:2 %} flex-lg-row-reverse {% else %} flex-lg-row {% endif %} align-items-center justify-content-center px-5">
+    <div class="header-content d-flex flex-column align-items-center px-3">
+        <h1 class="display-4 fw-bold">{{car.title}}</h1>
+        <h3 class="fw-semibold">৳ {{car.price}}</h3>
+        <p class="mb-4">{{car.description | truncatechars:200}}</p>
+        <div class="d-flex gap-3">
+            <a href="{% url 'view_details' car.id %}" class="btn btn-dark btn-rounded">Details</a>
+            <a href="{% url 'view_details' car.id %}" class="btn btn-outline-light btn-rounded">Buy Now!</a>
+        </div>
+    </div>
+    <div class="header-image">
+        <img src="{{ car.image.url }}" alt="Header Car">
+    </div>
+    {% if not forloop.last %}
+    <a href="#car{{ forloop.counter|add:1 }}" class="btn btn-outline-light btn-rounded">
+        <i class="fa-solid fa-angles-down"></i>
+    </a>
+    {% endif %}
+</div>
+{% endfor %}
+
+<div class="end d-flex justify-content-center align-items-center" id="best-price">
+    <button class="btn btn-outline-dark btn-rounded">Get Best Price!</button>
+</div>
+
+{% endblock main %}
+

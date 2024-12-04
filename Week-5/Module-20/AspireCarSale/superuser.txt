@@ -1,0 +1,5 @@
+Username : root
+Email address: root@mail.com
+Password: 1234
+-----------------------------------
+all_password: esrvt34vwer

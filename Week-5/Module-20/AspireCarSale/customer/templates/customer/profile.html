@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}Profile - Aspire Car-Sale{% endblock title %}
+
+{% block style %}
+<style>
+    .card {
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid #ddd;
+    }
+    .card img {
+        max-height: 150px;
+        object-fit: cover;
+    }
+    .card-body {
+        padding: 15px;
+    }
+</style>
+{% endblock style %}
+
+{% block main %}
+
+<div class="container my-5">
+    <div class="d-flex justify-content-center">
+        <div class="card shadow-sm" style="max-width: 400px; width: 100%;">
+            <div class="card-header text-center" style="background: #ff593b;">
+                <h5 class="mb-0">Personal Information</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Username:</strong> {{ user.username }} </p>
+                <p><strong>Full Name:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+                <p><strong>E-mail:</strong> {{ user.email }}</p>
+                <p><strong>Joined:</strong> {{ user.date_joined|date:"d M Y" }}</p>
+                <p><strong>Last Login:</strong> {{ user.last_login }}</p>
+            </div>
+            <div class="card-footer text-center">
+                <a href="{% url 'edit_profile' user.username %}" class="btn btn-dark me-2">Edit Profile</a>
+                <a href="{% url 'change_password' user.username %}" class="btn btn-outline-dark">Change Password</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container my-5">
+    <h2 class="text-center mb-4">My Orders</h2>
+    <hr>
+    <div class="row">
+    {% if cars %}
+        {% for car in cars %}
+        <div class="col-12 mb-3">
+            <div class="card shadow-sm">
+                <div class="row">
+                    
+                    <div class="col-md-3">
+                        <img src="{{ car.image.url }}" class="img-fluid rounded-start" alt="{{ car.title }}">
+                    </div>
+                    
+                    <div class="col-md-9">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">{{ car.title }}</h5>
+                            <p class="card-text text-muted mb-1"><b>Brand:</b> <a href="{% url 'brand_profile' car.brand.id %}">{{ car.brand.name }}</a></p>
+                            <p class="card-text text-muted mb-1"><b>Price:</b> BDT {{ car.price }}</p>
+                            <p class="card-text text-muted mb-1"><b>Total Quantity Purchased:</b> X1</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <h4 class="text-center text-muted">No Orders Yet!</h4>
+    {% endif %}
+    </div>
+    <div class="text-end mt-4">
+        <h4 class="fw-bold">Total Spent: <span class="text-success">BDT {{ total_spent }}</span></h4>
+    </div>
+</div>
+
+
+{% endblock main %}
