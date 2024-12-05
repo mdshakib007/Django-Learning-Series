@@ -1,10 +1,14 @@
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate, update_session_auth_hash
+from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import AuthenticationForm, UserChangeForm, PasswordChangeForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
+from django.views.generic.edit import CreateView
 from django.shortcuts import render, redirect
 from customer.forms import RegistrationForm, EditProfileForm
 from car.models import CarModel
+from django.urls import reverse_lazy
+from django.contrib.auth.models import User
 
 
 def login_view(request):
@@ -101,3 +105,45 @@ def change_password_view(request, username):
         return redirect('login')
 
 
+# ------------------------------------------------------------------
+# ------------------------------------------------------------------
+# ------------------------------------------------------------------
+# ----- Here i replaced 2 view function by class based view --------
+# ------------------------------------------------------------------
+# ------------------------------------------------------------------
+# ------------------------------------------------------------------
+
+
+class CustomerLoginView(LoginView):
+    template_name = 'customer/login.html'
+    
+    def get_success_url(self):
+        return reverse_lazy('home')
+
+    def form_valid(self, form):
+        messages.success(self.request, "Login Successful!")
+        return super().form_valid(form)
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('home')
+        return super().dispatch(request, *args, **kwargs)
+
+
+class RegisterView(CreateView):
+    template_name = 'customer/register.html'
+    form_class = RegistrationForm
+    model = User
+    
+    def get_success_url(self):
+        return reverse_lazy('home')
+
+    def form_valid(self, form):
+        form.save()
+        messages.success(self.request, "Registration Successful! Please Login to Continue!")
+        return super().form_valid(form)
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('home')
+        return super().dispatch(request, *args, **kwargs)
