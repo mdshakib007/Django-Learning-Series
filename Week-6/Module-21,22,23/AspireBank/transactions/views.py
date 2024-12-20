@@ -8,9 +8,10 @@ from django.views import View
 from django.http import HttpResponse
 from django.views.generic import CreateView, ListView
 from django.db.models import Sum
-from transactions.constants import DEPOSIT, WITHDRAWAL,LOAN, LOAN_PAID
-from transactions.forms import DepositForm, WithdrawForm, LoanRequestForm
+from transactions.constants import DEPOSIT, WITHDRAWAL,LOAN, LOAN_PAID, SEND_MONEY, RECEIVED_MONEY
+from transactions.forms import DepositForm, WithdrawForm, LoanRequestForm, SendMoneyForm
 from transactions.models import Transaction
+from accounts.models import UserBankAccount
 
 
 class TransactionCreateMixin(LoginRequiredMixin, CreateView):
@@ -147,3 +148,33 @@ class LoanListView(LoginRequiredMixin,ListView):
         queryset = Transaction.objects.filter(account=user_account,transaction_type=3)
         print(queryset)
         return queryset
+
+
+
+class SendMoneyView(TransactionCreateMixin):
+    form_class = SendMoneyForm
+    title = 'Send Money'
+
+    def get_initial(self):
+        initial = {'transaction_type': SEND_MONEY}
+        return initial
+
+    def form_valid(self, form):
+        amount = form.cleaned_data.get('amount')
+        to_account_no = form.cleaned_data.get('to_account')
+        to_account = UserBankAccount.objects.get(account_no=to_account_no)
+
+        self.request.user.account.balance -= amount
+        to_account.balance += amount
+        self.request.user.account.save(update_fields=['balance'])
+        to_account.save(update_fields=['balance'])
+
+        Transaction.objects.create(
+            account=to_account,
+            amount=amount,
+            balance_after_transaction=to_account.balance,
+            transaction_type=RECEIVED_MONEY, 
+        )
+
+        messages.success(self.request, f"Send Money to: ${amount} Successful!")
+        return super().form_valid(form)

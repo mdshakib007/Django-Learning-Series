@@ -1,6 +1,7 @@
 from django import forms
 from transactions.models import Transaction
-
+from core.models import Bank
+from accounts.models import UserBankAccount
 
 class TransactionForm(forms.ModelForm):
     class Meta:
@@ -37,7 +38,14 @@ class WithdrawForm(TransactionForm):
         min_withdraw_amount = 100
         max_withdraw_amount = 100000
         balance = account.balance
+        bank = Bank.objects.get(id=1)
         amount = self.cleaned_data.get('amount')
+
+        if bank.is_bankrupt:
+            raise forms.ValidationError(
+                f"This Bank is Bankrupt! So You Cannot Withdraw Any Money!"
+            )
+        
         if amount < min_withdraw_amount:
             raise forms.ValidationError(
                 f'You can withdraw at least ${min_withdraw_amount}'
@@ -60,5 +68,34 @@ class WithdrawForm(TransactionForm):
 class LoanRequestForm(TransactionForm):
     def clean_amount(self):
         amount = self.cleaned_data.get('amount')
+
+        return amount
+
+
+class SendMoneyForm(TransactionForm):
+    class Meta:
+        model = Transaction
+        fields = [
+            'to_account',
+            'amount',
+            'transaction_type'
+        ]
+    
+    def clean_to_account(self):
+        to_account_no = self.cleaned_data["to_account"]
+        try:
+            to_account = UserBankAccount.objects.get(account_no=to_account_no)
+        except UserBankAccount.DoesNotExist:
+            raise forms.ValidationError('The account number is invalid!')
+
+        return to_account_no
+    
+    def clean_amount(self):
+        amount = self.cleaned_data.get('amount') 
+        account = self.account
+        balance = account.balance
+
+        if amount > balance:
+            raise forms.ValidationError('You do not have sufficient money to send!')
 
         return amount
