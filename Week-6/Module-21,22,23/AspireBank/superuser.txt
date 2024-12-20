@@ -1,0 +1,4 @@
+Username (leave blank to use 'mdshakib007'): root
+Email address: root@mail.com
+Password: 1234
+others: aSsdfjer345d
