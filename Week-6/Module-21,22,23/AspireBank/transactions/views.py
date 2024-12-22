@@ -8,10 +8,30 @@ from django.views import View
 from django.http import HttpResponse
 from django.views.generic import CreateView, ListView
 from django.db.models import Sum
+from django.core.mail import EmailMessage, EmailMultiAlternatives
+from django.template.loader import render_to_string
 from transactions.constants import DEPOSIT, WITHDRAWAL,LOAN, LOAN_PAID, SEND_MONEY, RECEIVED_MONEY
 from transactions.forms import DepositForm, WithdrawForm, LoanRequestForm, SendMoneyForm
 from transactions.models import Transaction
 from accounts.models import UserBankAccount
+
+
+def send_transaction_email(user, amount, subject, template, to_user=None):
+    if to_user is not None:
+        message = render_to_string(template,{
+            'user' : user,
+            'to_user' : to_user,
+            'amount' : amount
+        })
+    else:
+        message = render_to_string(template,{
+            'user' : user,
+            'amount' : amount
+        })
+
+    send_email = EmailMultiAlternatives(subject, '', to=[user.email])
+    send_email.attach_alternative(message, 'text/html')
+    send_email.send()
 
 
 class TransactionCreateMixin(LoginRequiredMixin, CreateView):
@@ -51,6 +71,9 @@ class DepositMoneyView(TransactionCreateMixin):
         account.save(update_fields=['balance'])
 
         messages.success(self.request, f'{"${:,.2f}".format(float(amount))} Was Successfully Deposited to Your Account!')
+
+        send_transaction_email(self.request.user, amount, "Deposit Success!", "transactions/deposit_email.html")
+
         return super().form_valid(form)
 
 
@@ -67,6 +90,7 @@ class WithdrawMoneyView(TransactionCreateMixin):
         self.request.user.account.balance -= form.cleaned_data.get('amount')
         self.request.user.account.save(update_fields=['balance'])
 
+        send_transaction_email(self.request.user, amount, "Withdraw Success!", "transactions/withdrawal_email.html")
         messages.success(self.request, f'Successfully withdrawn {"${:,.2f}".format(float(amount))} from your account!')
         return super().form_valid(form)
 
@@ -80,10 +104,8 @@ class LoanRequestView(TransactionCreateMixin):
 
     def form_valid(self, form):
         amount = form.cleaned_data.get('amount')
-        current_loan_count = Transaction.objects.filter( account=self.request.user.account,transaction_type=3,loan_approve=False).count()
-        if current_loan_count >= 1:
-            return HttpResponse("You already have a pending request for a loan!")
         messages.success(self.request, f'Loan request for {"${:,.2f}".format(float(amount))} is Panding!')
+        send_transaction_email(self.request.user, amount, "Request For A Loan", "transactions/loan_request_email.html")
         return super().form_valid(form)
     
 class TransactionReportView(LoginRequiredMixin, ListView):
@@ -120,7 +142,7 @@ class TransactionReportView(LoginRequiredMixin, ListView):
 class PayLoanView(LoginRequiredMixin, View):
     def get(self, request, loan_id):
         loan = get_object_or_404(Transaction, id=loan_id)
-        print(loan)
+        
         if loan.loan_approve:
             user_account = loan.account
             if loan.amount < user_account.balance:
@@ -146,7 +168,7 @@ class LoanListView(LoginRequiredMixin,ListView):
     def get_queryset(self):
         user_account = self.request.user.account
         queryset = Transaction.objects.filter(account=user_account,transaction_type=3)
-        print(queryset)
+        
         return queryset
 
 
@@ -175,6 +197,9 @@ class SendMoneyView(TransactionCreateMixin):
             balance_after_transaction=to_account.balance,
             transaction_type=RECEIVED_MONEY, 
         )
+
+        send_transaction_email(self.request.user, amount, "Send Money Successful!", "transactions/send_money_email.html", to_account)
+        send_transaction_email(to_account.user, amount, "Received Money Successful!", "transactions/receieved_money_email.html", self.request.user)
 
         messages.success(self.request, f"Send Money to: ${amount} Successful!")
         return super().form_valid(form)

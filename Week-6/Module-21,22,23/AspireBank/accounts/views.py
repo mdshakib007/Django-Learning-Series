@@ -1,13 +1,13 @@
 from django.shortcuts import render, redirect
 from django.views.generic import FormView, View, TemplateView
 from accounts.forms import RegistrationForm, UserUpdateForm
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import login, logout, authenticate, update_session_auth_hash
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-
+from django.contrib.auth.forms import PasswordChangeForm
 
 class UserRegistrationView(FormView):
     template_name = 'accounts/user_registration.html'
@@ -49,6 +49,27 @@ class UserAccountUpdateView(LoginRequiredMixin, View):
             return redirect('profile') 
         return render(request, self.template_name, {'form': form})
     
+
+
+class UserChangePassword(LoginRequiredMixin, View):
+    template_name = 'accounts/change_password.html'
+
+    def get(self, request):
+        form = PasswordChangeForm(user=request.user)
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        form = PasswordChangeForm(user=request.user, data=request.POST)
+        if form.is_valid():
+            user = form.save()  
+            update_session_auth_hash(request, user) 
+            messages.success(request, "Password changed successfully!")
+            return redirect('profile') 
+        else:
+            messages.error(request, "Please correct the error(s) below.")
+        return render(request, self.template_name, {'form': form})
+
+
 
 class UserProfileView(LoginRequiredMixin, TemplateView):
     template_name = 'accounts/user_profile.html'

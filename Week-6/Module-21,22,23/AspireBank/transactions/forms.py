@@ -68,6 +68,9 @@ class WithdrawForm(TransactionForm):
 class LoanRequestForm(TransactionForm):
     def clean_amount(self):
         amount = self.cleaned_data.get('amount')
+        current_loan_count = Transaction.objects.filter( account=self.account, transaction_type=3,loan_approve=False).count()
+        if current_loan_count >= 1:
+            raise forms.ValidationError("You already have a pending request for a loan!")
 
         return amount
 

@@ -1,2 +1,7 @@
-__pycache__/
 post_images/
+*.pyc
+__pycache__
+db.sqlite3
+/env
+*.env
+.vscode

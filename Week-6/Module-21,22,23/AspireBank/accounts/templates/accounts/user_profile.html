@@ -22,7 +22,7 @@
           <p><span class="font-bold">Address: </span>{{user.address.street_address}}</p>
           <p><span class="font-bold">Country: </span>{{user.address.country}}</p>
           <div class="card-actions justify-end">
-            <a class="btn btn-outline btn-error" href="{% url 'logout' %}">Logout</a>
+            <a class="btn bg-red-500 text-white hover:bg-red-600" href="{% url 'change_password' %}">Change Password</a>
             <a class="btn text-white btn-primary" href="{% url 'update-profile' %}">Edit Profile</a>
           </div>
         </div>
