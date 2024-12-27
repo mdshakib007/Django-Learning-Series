@@ -8,6 +8,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
+from transactions.views import send_transaction_email
 
 class UserRegistrationView(FormView):
     template_name = 'accounts/user_registration.html'
@@ -64,6 +65,7 @@ class UserChangePassword(LoginRequiredMixin, View):
             user = form.save()  
             update_session_auth_hash(request, user) 
             messages.success(request, "Password changed successfully!")
+            send_transaction_email(request.user, 0, "Security Alert", "accounts/change_password_email.html")
             return redirect('profile') 
         else:
             messages.error(request, "Please correct the error(s) below.")
