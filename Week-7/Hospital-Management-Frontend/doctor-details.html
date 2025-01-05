@@ -7,7 +7,7 @@
     <title>Hospital</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiffy-slider@1.6.0/dist/js/swiffy-slider.min.js" crossorigin="anonymous" defer></script>
-    <link href="https://cdn.jsdelivr.net/npm/swiffy-slider@1.6.0/dist/css/swiffy-slider.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/swiffy-slider@1.6.0/dist/css/swiffy-slider.min.css" rel="stylesheet" crossorigin="anonymous">  
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.19/dist/full.min.css" rel="stylesheet" type="text/css" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="style.css">
@@ -48,86 +48,58 @@
                 </div>
             </div>
         </nav>
-        
-        <div class="flex flex-col md:flex-row items-center justify-evenly bg-gradient-to-b from-violet-200 to-violet-400 h-auto m-4 rounded-lg mt-20">
-            <div class="m-2">
-                <h1 class="text-4xl font-bold my-4">Providing <span class="text-violet-700">Quality</span><br> HealthCare</h1>
-                <p class="text-gray-700 mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit.<br> Error quod laboriosam nesciunt ea. Qui, illo!</p>
-                <button class="btn bg-violet-700 border-none hover:bg-violet-800  text-white">Explore</button>
-            </div>
-            <div>
-                <img src="./images/female-doctor-hospital-with-stethoscope.png" alt="" class="max-h-96">
-            </div>
-        </div>
     </header>
 
-    <main>
-
-        <!-- services here  -->
-        <h1 class="text-4xl font-bold text-center mt-16 mb-2"><span class="text-violet-700">Services</span> We Provide</h1>
-        <p class="text-center text-gray-700 mb-6">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eligendi nobis explicabo iusto amet,<br>nostrum odio ex nemo molestias ducimus accusantium!</p>
-        <!-- slider  -->
-        <div class="swiffy-slider slider-item-show2 slider-item-reveal slider-nav-outside slider-nav-round slider-nav-visible slider-indicators-outside slider-indicators-round slider-indicators-dark">
-            <ul id="service-container" class="slider-container py-4">
-                <!-- the slider data will goes here from js file  -->
-            </ul>
-            <button type="button" class="slider-nav" aria-label="Go left"></button>
-            <button type="button" class="slider-nav slider-nav-next" aria-label="Go left"></button>
+    <main class="min-h-screen">
+        <h1 class="text-4xl font-bold text-center mt-16 mb-2"><span class="text-violet-700">Doctor</span> Details</h1>
+        <hr>
+        <div id="doc-details-card" class="flex flex-col md:flex-row items-center justify-evenly bg-gradient-to-b from-violet-200 to-violet-400 h-auto m-4 rounded-lg mt-20">
+          <!-- here doctor's details goes from js -->
         </div>
 
-        <!-- doctors container -->
-        <h1 class="text-4xl font-bold text-center mt-16 mb-2">Our <span class="text-violet-700">Specialist</span> Doctors</h1>
-        <p class="text-center text-gray-700 mb-6">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eligendi nobis explicabo iusto amet,<br>nostrum odio ex nemo molestias ducimus accusantium!</p>
-        <!-- searchbar and dropdown  -->
-        <div class="flex flex-col md:flex-row ">
-            <div class="">
-                <details class="dropdown">
-                    <summary class="btn mx-1 bg-violet-700 hover:bg-violet-800 text-white">Designation<i class="fa-solid fa-caret-down"></i></summary>
-                    <ul id="designation-dropdown" tabindex="0" class="dropdown-content menu bg-violet-200 rounded-box z-[1] w-52 p-2 shadow-md font-bold">
-                      <!-- here the designations will goes from js  -->
-                    </ul>
-                </details>
-                <details class="dropdown">
-                    <summary class="btn mx-1 bg-violet-700 hover:bg-violet-800 text-white">Specialization<i class="fa-solid fa-caret-down"></i></summary>
-                    <ul id="specialization-dropdown" tabindex="0" class="dropdown-content menu bg-violet-200 rounded-box z-[1] w-52 p-2 shadow-md font-bold">
-                      <!-- here Specialization will goes from js  -->
-                    </ul>
-                </details>
+        <!-- take appoinment modal -->
+        <dialog id="my_modal_1" class="modal modal-bottom sm:modal-middle">
+          <div class="modal-box">
+            <h3 class="text-xl font-bold">Submit Information</h3>
+            <p class="py-4 flex flex-col gap-3">
+              <span class="font-bold">Type:</span>
+              <span class="mx-2">
+                <input type="radio" name="appoinment-type" class="radio" id="app-1" checked="checked" value="Online"/>
+                <label for="app-1">Online</label>
+              </span>
+              <span class="mx-2">
+                <input type="radio" name="appoinment-type" class="radio" id="app-2" value="Offline"/>
+                <label for="app-2">Offline</label>
+              </span>
+              <span class="mt-3">
+                <input type="text" placeholder="Type your symptom" class="input input-bordered w-full max-w-xs" id="symptom"/>
+              </span>
+              <select class="select select-ghost w-full max-w-xs" id="time" name="time">
+                <!-- all available time will appear here  -->
+              </select>
+            </p>
+            <button class="btn bg-violet-700 border-none hover:bg-violet-800  text-white" onclick="handleAppoinment()">Take Appoinment</button>
+            <div class="modal-action">
+              <form method="dialog">
+                <button class="btn">Close</button>
+              </form>
             </div>
-            <div class="flex-1">
-                <input type="text" placeholder="Search..." class="input input-bordered w-full max-w-xs" id="search-doctor"/>
-                <button class="btn bg-violet-700 border-none hover:bg-violet-800  text-white" onclick="handleSearch()">Search</button>
-                <div id="doctor-cards" class="flex flex-wrap gap-4 my-4">
-                  <!-- here all the available doctors card will shown from js  -->
-                </div>
-                <!-- loading skeleton  -->
-                <div id="loading-doctor-card" class="m-3">
-                  <div class="flex w-52 flex-col gap-4">
-                    <div class="skeleton h-32 w-full"></div>
-                    <div class="skeleton h-4 w-28"></div>
-                    <div class="skeleton h-4 w-full"></div>
-                    <div class="skeleton h-4 w-full"></div>
-                  </div>
-                </div>
-                <div id="no-doctor-data">
-                  <h1 class="text-3xl p-3 font-bold"><i class="fa-solid fa-ban"></i> No Data Found!</h1>
-                </div>
-            </div>
-        </div>
+          </div>
+        </dialog>
 
         <!-- patient's reviews  -->
-        <h1 class="text-4xl font-bold text-center mt-16 mb-2">Clients <span class="text-violet-700">Review</span> About Us</h1>
-        <p class="text-center text-gray-700 mb-6">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eligendi nobis explicabo iusto amet,<br>nostrum odio ex nemo molestias ducimus accusantium!</p>
+        <h1 class="text-4xl font-bold text-center mt-16 mb-2">Clients <span class="text-violet-700">Review</span> About This Doctor</h1>
+        <p class="text-center text-gray-700 mb-6">Lorem ipsum dolor sit elit. Eligendi nobis explicabo iusto amet,<br>nostrum odio ex nemo molestias ducimus accusantium!</p>
         <!-- reviews -->
-         <div class="review-container m-3">
+          <div class="review-container m-3">
             <div class="swiffy-slider slider-item-show3 slider-nav-dark slider-nav-visible slider-nav-outside slider-item-snapstart my-3 slider-nav-sm my-xl-5 slider-indicators-square slider-indicators-outside slider-indicators-dark slider-nav-animation-slideup slider-nav-animation slider-item-first-visible">
-              <div class="slider-container" id="reviews">
+              <div class="slider-container" id="reviews-of-doctor">
                     <!-- here the reviews will goes from js  -->
               </div>
               <button type="button" class="slider-nav" aria-label="Go left"></button>
               <button type="button" class="slider-nav slider-nav-next" aria-label="Go left"></button>          
             </div>
-         </div>
+          </div>
     </main>
 
     <footer class="footer footer-center bg-violet-200 text-black p-10">
@@ -178,7 +150,7 @@
           </div>
         </nav>
       </footer>
-    <script src="./app.js"></script>
+    <script src="./doctor-details.js"></script>
 </body>
 
 </html>

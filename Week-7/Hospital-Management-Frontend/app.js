@@ -16,7 +16,7 @@ const displayService = (services) => {
                 </div>
                 <div class="card-body p-3 p-xl-5">
                     <h3 class="card-title h5">${service.name}</h3>
-                    <p class="card-text">${service.description.slice(0, 100)}...</p>
+                    <p class="card-text text-gray-600">${service.description.slice(0, 100)}...</p>
                     <a href="#" class="btn bg-violet-700 border-none hover:bg-violet-800 text-white max-w-fit">Learn More</a>
                 </div>
             </div>
@@ -26,9 +26,21 @@ const displayService = (services) => {
 };
 
 const loadDoctor = (name) => {
+    // clear doctors section
+    document.getElementById("doctor-cards").innerHTML = "";
+    document.getElementById("loading-doctor-card").style.display = "block";
+
     fetch(`https://testing-8az5.onrender.com/doctor/list/?search=${name ? name : ""}`)
     .then((res) => res.json())
-    .then((data) => displayDoctor(data?.results));
+    .then((data) => {
+        document.getElementById("loading-doctor-card").style.display = "none";
+        if (data.results.length > 0){
+            document.getElementById("no-doctor-data").style.display = "none";
+            displayDoctor(data?.results);
+        } else{
+            document.getElementById("no-doctor-data").style.display = "block";
+        }
+    });
 };
 
 const displayDoctor = (doctors) => {
@@ -52,7 +64,7 @@ const displayDoctor = (doctors) => {
                     return `<div class="badge badge-outline p-2 my-2">${item}</div>`
                 })}
             </p>
-            <button class="btn bg-violet-700 border-none hover:bg-violet-800  text-white">Details</button>
+            <a class="btn bg-violet-700 border-none hover:bg-violet-800  text-white" href="doctor-details.html?doctorId=${doctor.id}">Details</a>
             </div>
         `;
         parent.appendChild(div);
@@ -66,8 +78,8 @@ const loadDesignation = () => {
         const parent = document.getElementById("designation-dropdown");
         const li = document.createElement("li");
         li.innerHTML = `
-            <a>${item.name}</a>
-        `
+            <a onclick="loadDoctor('${item.name}')">${item.name}</a>
+        `;
         parent.appendChild(li);
     }));
 };
@@ -79,7 +91,7 @@ const loadSpecialization = () => {
         const parent = document.getElementById("specialization-dropdown");
         const li = document.createElement("li");
         li.innerHTML = `
-            <a>${item.name}</a>
+            <a onclick="loadDoctor('${item.name}')">${item.name}</a>
         `
         parent.appendChild(li);
     }));
@@ -87,12 +99,36 @@ const loadSpecialization = () => {
 
 const handleSearch = () => {
     const value = document.getElementById("search-doctor").value;
+    document.getElementById("search-doctor").value = "";
     loadDoctor(value);
 };
 
+const loadReview = () => {
+    fetch("https://testing-8az5.onrender.com/doctor/review/")
+    .then(res => res.json())
+    .then(data => displayReview(data));
+};
+
+const displayReview = (reviews) => {
+    console.log(reviews);
+    reviews.forEach(review => {
+        parent = document.getElementById("reviews");
+        div = document.createElement("div");
+        div.classList.add("min-h-36");
+        div.innerHTML = `
+            <div class="">
+                <h3 class="text-xl font-bold text-violet-700">${review.reviewer}</h3>
+                <h6 class="">${review.rating}</h6>
+                <p class="text-sm text-gray-600">${review.body.slice(0,100)}...<p>
+            </div>
+        `;
+        parent.appendChild(div);
+    });
+}
 
 
 loadServices();
 loadDoctor();
 loadDesignation();
 loadSpecialization();
+loadReview();
