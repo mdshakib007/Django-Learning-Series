@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hospital</title>
+    <title>Register - SmartCareBD</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiffy-slider@1.6.0/dist/js/swiffy-slider.min.js" crossorigin="anonymous"
         defer></script>
@@ -43,10 +43,9 @@
                         </div>
                         <ul tabindex="0"
                             class="menu menu-sm dropdown-content bg-base-200 rounded-box mt-3 w-52 p-2 shadow-lg z-50">
-                            <li><a href=""><i class="fa-solid fa-user"></i> Profile</a></li>
-                            <li><a href=""><i class="fa-solid fa-gear"></i> Settings</a></li>
+                            <li><a href="profile.html"><i class="fa-solid fa-user"></i> Profile</a></li>
+                            <li><a href="my_appointments.html"><i class="fa-solid fa-address-card"></i> My Appointments</a></li>
                             <li><a href=""><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
-                            <li><a href=""><i class="fa-solid fa-address-card"></i> Register/Login</a></li>
                         </ul>
                     </div>
                 </div>
@@ -55,39 +54,61 @@
     </header>
 
     <main class="min-h-screen">
-        <!-- login form  -->
+        <!-- registration form  -->
         <div class="flex justify-center items-center h-screen bg-violet-100">
             <div class="card w-96 bg-violet-300 shadow-xl">
                 <div class="card-body">
-                    <h2 class="text-2xl font-bold text-center text-violet-900 mb-4">Login</h2>
-                    <form action="" method="post" class="space-y-4" onsubmit="handleLogin(event)">
+                    <h2 class="text-2xl font-bold text-center text-violet-900 mb-4">Register</h2>
+                    <form action="" method="post" class="space-y-4" onsubmit="handleRegister(event)">
+                        
+                        <!-- Username -->
                         <div class="form-control">
-                            <label for="username" class="label">
-                                <span class="label-text font-medium text-violet-800">Enter Your Username</span>
-                            </label>
-                            <input type="text" name="username" id="login-username" placeholder="Username"
-                                class="input input-bordered w-full" required/>
+                            <input type="text" name="username" id="username" placeholder="Username"
+                                class="input input-bordered w-full" required />
                         </div>
+
+                        <!-- First Name -->
                         <div class="form-control">
-                            <label for="password" class="label">
-                                <span class="label-text font-medium text-violet-800">Enter Your Password</span>
-                            </label>
-                            <input type="password" name="password" id="login-password" placeholder="Password"
-                                class="input input-bordered w-full" required/>
+                            <input type="text" name="first_name" id="first-name" placeholder="First Name"
+                                class="input input-bordered w-full" required />
                         </div>
-                        <p class="text-red-600 italic my-2 text-sm" id="login-error-message"></p>
+
+                        <!-- Last Name -->
+                        <div class="form-control">
+                            <input type="text" name="last_name" id="last-name" placeholder="Last Name"
+                                class="input input-bordered w-full" required />
+                        </div>
+
+                        <!-- Email -->
+                        <div class="form-control">
+                            <input type="email" name="email" id="email" placeholder="Email Address"
+                                class="input input-bordered w-full" required />
+                        </div>
+
+                        <!-- Password -->
+                        <div class="form-control">
+                            <input type="password" name="password" id="password" placeholder="Password"
+                                class="input input-bordered w-full" required />
+                        </div>
+
+                        <!-- Confirm Password -->
+                        <div class="form-control">
+                            <input type="password" name="confirm_password" id="confirm-password"
+                                placeholder="Confirm Password" class="input input-bordered w-full" required />
+                        </div>
+                        <p class="text-red-600 italic my-2 text-sm" id="error-message"></p>
                         <!-- Submit Button -->
-                        <input class="btn bg-violet-700 border-none hover:bg-violet-800 btn-block text-white"
-                            type="submit" value="Login">
+                        <button id="register-btn" class="btn bg-violet-700 border-none hover:bg-violet-800 btn-block text-white"
+                            type="submit">Register</button>
                     </form>
                     <div class="text-center mt-4">
-                        <a href="registration.html" class="text-sm text-violet-900 hover:underline">Don't have an
+                        <a href="login.html" class="text-sm text-violet-900 hover:underline">Already have an
                             account?</a>
                     </div>
+                    <h1 id="register-success" class="text-xl font-bold m-2 text-center"></h1>
                 </div>
             </div>
         </div>
-
     </main>
 
     <footer class="footer footer-center bg-violet-200 text-black p-10">

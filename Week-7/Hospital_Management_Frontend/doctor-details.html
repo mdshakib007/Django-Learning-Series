@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hospital</title>
+    <title>Doctor Details - SmartCareBD</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiffy-slider@1.6.0/dist/js/swiffy-slider.min.js" crossorigin="anonymous" defer></script>
     <link href="https://cdn.jsdelivr.net/npm/swiffy-slider@1.6.0/dist/css/swiffy-slider.min.css" rel="stylesheet" crossorigin="anonymous">  
@@ -15,39 +15,40 @@
 
 <body class="bg-violet-50">
     <header>
-        <nav class="pb-16">
-            <div class="navbar !bg-violet-200  text-base-content fixed z-40">
-                <div class="flex-1">
-                <a class="w-12 tooltip tooltip-right" href="index.html" data-tip="SmartCare"><img src="./images/logo.png" alt="logo"></a>
+      <nav class="pb-16">
+        <div class="navbar !bg-violet-200  text-base-content fixed z-40">
+            <div class="flex-1">
+                <a class="w-12 tooltip tooltip-right" href="index.html" data-tip="SmartCare"><img
+                        src="./images/logo.png" alt="logo"></a>
                 <ul class="menu menu-horizontal px-1 text-black font-bold">
                     <li>
                         <details>
-                        <summary>Menu</summary>
-                        <ul class="bg-base-200 rounded-t-none p-2 shadow-lg z-50">
-                            <li><a href="login.html"><i class="fa-solid fa-address-card"></i> Register/Login</a></li>
-                        </ul>
+                            <summary>Menu</summary>
+                            <ul class="bg-base-200 rounded-t-none p-2 shadow-lg z-50">
+                                <li><a href="login.html"><i class="fa-solid fa-address-card"></i> Register/Login</a>
+                                </li>
+                            </ul>
                         </details>
                     </li>
-                    </ul>
-                </div>
-                <div class="flex-none">
+                </ul>
+            </div>
+            <div class="flex-none">
                 <div class="dropdown dropdown-end">
                     <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
                         <div class="w-10 rounded-full">
-                            <img  alt="profile" src="./images/profile.png" />
+                            <img alt="profile" src="./images/profile.png" />
                         </div>
                     </div>
                     <ul tabindex="0"
-                    class="menu menu-sm dropdown-content bg-base-200 rounded-box mt-3 w-52 p-2 shadow-lg z-50">
-                    <li><a href=""><i class="fa-solid fa-user"></i> Profile</a></li>
-                    <li><a href=""><i class="fa-solid fa-gear"></i> Settings</a></li>
-                    <li><a href=""><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
-                    <li><a href=""><i class="fa-solid fa-address-card"></i> Register/Login</a></li>
+                        class="menu menu-sm dropdown-content bg-base-200 rounded-box mt-3 w-52 p-2 shadow-lg z-50">
+                        <li><a href="profile.html"><i class="fa-solid fa-user"></i> Profile</a></li>
+                        <li><a href=""><i class="fa-solid fa-address-card"></i> My Appointments</a></li>
+                        <li><a href=""><i class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
                     </ul>
                 </div>
-                </div>
             </div>
-        </nav>
+        </div>
+    </nav>
     </header>
 
     <main class="min-h-screen">

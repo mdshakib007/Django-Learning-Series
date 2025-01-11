@@ -1,8 +1,7 @@
 const loadServices = () => {
-    fetch("https://testing-8az5.onrender.com/services/")
+    fetch("https://smartcarebd-backend.onrender.com/services/")
     .then(res => res.json())
     .then((data) => displayService(data))
-    .catch((err) => console.log(err));
 };
 
 const displayService = (services) => {
@@ -25,18 +24,18 @@ const displayService = (services) => {
     });
 };
 
-const loadDoctor = (name) => {
+const loadDoctor = (id) => {
     // clear doctors section
     document.getElementById("doctor-cards").innerHTML = "";
     document.getElementById("loading-doctor-card").style.display = "block";
 
-    fetch(`https://testing-8az5.onrender.com/doctor/list/?search=${name ? name : ""}`)
+    fetch(`https://smartcarebd-backend.onrender.com/doctor/list/?doctor_id=${id ? id : ""}`)
     .then((res) => res.json())
     .then((data) => {
         document.getElementById("loading-doctor-card").style.display = "none";
-        if (data.results.length > 0){
+        if (data.length > 0){
             document.getElementById("no-doctor-data").style.display = "none";
-            displayDoctor(data?.results);
+            displayDoctor(data);
         } else{
             document.getElementById("no-doctor-data").style.display = "block";
         }
@@ -57,14 +56,13 @@ const displayDoctor = (doctors) => {
             <img src=${doctor?.image} alt="Shoes" class="rounded-md max-w-64" />
             </div>
             <div class="items-center text-center p-2">
-            <h2 class="text-xl font-bold">${doctor?.full_name}</h2>
-            <p>If a dog chews shoes whose shoes does he choose?</p>
+            <h2 class="text-xl font-bold">${doctor.full_name}</h2>
             <p>            
                 ${doctor?.specialization?.map((item) => {
-                    return `<div class="badge badge-outline p-2 my-2">${item}</div>`
-                })}
+                    return `<div class="badge badge-outline p-2 m-1">${item}</div>`
+                }).join('')}
             </p>
-            <a class="btn bg-violet-700 border-none hover:bg-violet-800  text-white" href="doctor-details.html?doctorId=${doctor.id}">Details</a>
+            <a class="btn btn-sm bg-violet-700 border-none hover:bg-violet-800  text-white" href="doctor-details.html?doctor_id=${doctor.id}">Details</a>
             </div>
         `;
         parent.appendChild(div);
@@ -72,7 +70,7 @@ const displayDoctor = (doctors) => {
 };
 
 const loadDesignation = () => {
-    fetch("https://testing-8az5.onrender.com/doctor/designation/")
+    fetch("https://smartcarebd-backend.onrender.com/doctor/designations/")
     .then(res => res.json())
     .then(data => data.forEach(item =>{
         const parent = document.getElementById("designation-dropdown");
@@ -85,7 +83,7 @@ const loadDesignation = () => {
 };
 
 const loadSpecialization = () => {
-    fetch("https://testing-8az5.onrender.com/doctor/specialization/")
+    fetch("https://smartcarebd-backend.onrender.com/doctor/specializations/")
     .then(res => res.json())
     .then(data => data.forEach(item =>{
         const parent = document.getElementById("specialization-dropdown");
@@ -104,20 +102,19 @@ const handleSearch = () => {
 };
 
 const loadReview = () => {
-    fetch("https://testing-8az5.onrender.com/doctor/review/")
+    fetch("https://smartcarebd-backend.onrender.com/doctor/reviews/")
     .then(res => res.json())
     .then(data => displayReview(data));
 };
 
 const displayReview = (reviews) => {
-    console.log(reviews);
     reviews.forEach(review => {
         parent = document.getElementById("reviews");
         div = document.createElement("div");
         div.classList.add("min-h-36");
         div.innerHTML = `
             <div class="">
-                <h3 class="text-xl font-bold text-violet-700">${review.reviewer}</h3>
+                <h3 class="text-xl font-bold text-violet-700">${review.reviewer_name}</h3>
                 <h6 class="">${review.rating}</h6>
                 <p class="text-sm text-gray-600">${review.body.slice(0,100)}...<p>
             </div>

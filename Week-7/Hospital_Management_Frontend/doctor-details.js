@@ -1,15 +1,15 @@
 const getParam = () => {
-    const param = new URLSearchParams(window.location.search).get("doctorId");
+    const param = new URLSearchParams(window.location.search).get("doctor_id");
     
-    fetch(`https://testing-8az5.onrender.com/doctor/list/${param}`)
+    fetch(`https://smartcarebd-backend.onrender.com/doctor/list/${param}`)
     .then(res => res.json())
     .then(data => displayDetails(data));
 
-    fetch(`https://testing-8az5.onrender.com/doctor/review/?doctor_id=${param}`)
+    fetch(`https://smartcarebd-backend.onrender.com/doctor/reviews/?doctor_id=${param}`)
     .then(res => res.json())
     .then(data => displayReview(data));
 
-    fetch(`https://testing-8az5.onrender.com/doctor/availabletime/?doctor_id=${param}`)
+    fetch(`https://smartcarebd-backend.onrender.com/doctor/available_times/?doctor_id=${param}`)
     .then(res => res.json())
     .then(data => displayAvailableTime(data));
 };
@@ -24,15 +24,15 @@ const displayDetails = (doctor) => {
         <h4 class="text-violet-700 mb-4 font-bold text-xl">Fee Tk. ${doctor.fee}</h4>
         <p><span class="font-bold">Designations:</span> <br>${
             doctor.designation.map(desig => {
-                return `<div class="badge badge-outline p-3 my-2">${desig}</div>`
-            }) 
+                return `<div class="badge badge-outline p-3 m-1">${desig}</div>`
+            }).join('')
         }</p>
         <p><span class="font-bold">Specializations:</span> <br>${
             doctor.specialization.map(spec => {
-                return `<div class="badge badge-outline p-3 my-2">${spec}</div>`
-            }) 
+                return `<div class="badge badge-outline p-3 m-1">${spec}</div>`
+            }).join('')
         }</p>
-        <button class="btn bg-violet-700 border-none hover:bg-violet-800  text-white" onclick="my_modal_1.showModal()">Take Appoinment</button>
+        <button class="btn bg-violet-700 border-none hover:bg-violet-800  text-white my-2" onclick="my_modal_1.showModal()">Take Appoinment</button>
     `
     div2.innerHTML = `
         <img src="${doctor.image}" alt="${doctor.full_name}" class="max-h-96 rounded-md">
@@ -48,7 +48,7 @@ const displayReview = (reviews) => {
         div.classList.add("min-h-36");
         div.innerHTML = `
             <div class="">
-                <h3 class="text-xl font-bold text-violet-700">${review.reviewer}</h3>
+                <h3 class="text-xl font-bold text-violet-700">${review.reviewer_name}</h3>
                 <h6 class="">${review.rating}</h6>
                 <p class="text-sm text-gray-600">${review.body.slice(0,100)}...<p>
             </div>
@@ -68,7 +68,7 @@ const displayAvailableTime = (times) => {
 };
 
 const handleAppoinment = () => {
-    const param = new URLSearchParams(window.location.search).get("doctorId");
+    const param = new URLSearchParams(window.location.search).get("doctor_id");
 
     const appoin_type = document.getElementsByName("appoinment-type");
     const selected = Array.from(appoin_type).find((button) => button.checked);
